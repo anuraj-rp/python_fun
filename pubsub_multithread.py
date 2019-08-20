@@ -15,7 +15,8 @@ import threading
 import sys
 from pubsub import pub
 
-resultStep = 1000000 # the number of counts for thread resuslt to be available
+resultStep = 1000000  # the number of counts for thread resuslt to be available
+
 
 def threadObserver(transfers, threadObj, count):
     """
@@ -26,9 +27,11 @@ def threadObserver(transfers, threadObj, count):
     :param count: current count passed in
     :return: nothing
     """
-    print(transfers, threadObj, count/resultStep)
+    print(transfers, threadObj, count / resultStep)
+
 
 pub.subscribe(threadObserver, 'testTopic')
+
 
 def onIdle():
     """
@@ -47,10 +50,10 @@ class ParallelFunction(threading.Thread):
 
     def __init__(self):
         super().__init__()
-        self.running = False # set to True when thread should stop
-        self.count = 0 # workload: keep counts
-        self.queue = Queue() #to transfer data to main thread
-        self.transfer = 0 # count how many transfers occured
+        self.running = False  # set to True when thread should stop
+        self.count = 0  # workload: keep counts
+        self.queue = Queue()  #to transfer data to main thread
+        self.transfer = 0  # count how many transfers occured
 
     def run(self):
         print('aux thread started')
@@ -74,14 +77,17 @@ class ParallelFunction(threading.Thread):
         """
         self.transfer += 1
         while not self.queue.empty():
-            pub.sendMessage('testTopic', transfers=self.transfer,
+            pub.sendMessage('testTopic',
+                            transfers=self.transfer,
                             threadObj=threading.current_thread(),
                             count=self.queue.get())
 
+
 thread = ParallelFunction()
 
+
 def main():
-    idleFns = [] # list of functions to call when gui is idle
+    idleFns = []  # list of functions to call when gui is idle
     idleFns.append(onIdle)
 
     try:
@@ -90,7 +96,7 @@ def main():
         print('starting event loop')
         eventLoop = True
         while eventLoop:
-            time.sleep(1) # pretending the main thread stuff is doing some stuff
+            time.sleep(1)  # pretending the main thread stuff is doing some stuff
             for idleFn in idleFns:
                 idleFn()
 
@@ -103,6 +109,7 @@ def main():
         print(exc)
         print('Exception, stopping auxillary thread')
         thread.stop()
+
 
 if __name__ == "__main__":
     main()
