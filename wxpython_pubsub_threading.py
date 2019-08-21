@@ -52,8 +52,8 @@ class MyFrame(wx.Frame):
         self.btn.Bind(wx.EVT_BUTTON, self.onButtonClick)
 
         sizer = wx.BoxSizer(wx.VERTICAL)
-        sizer.Add(self.displayLbl, 0, wx.ALL|wx.CENTER, 5)
-        sizer.Add(self.btn, 0, wx.ALL|wx.CENTER, 5)
+        sizer.Add(self.displayLbl, 0, wx.ALL | wx.CENTER, 5)
+        sizer.Add(self.btn, 0, wx.ALL | wx.CENTER, 5)
         panel.SetSizer(sizer)
 
         pub.subscribe(self.updateDisplay, "update")
@@ -70,7 +70,7 @@ class MyFrame(wx.Frame):
         """ Receives data from thread and updates the display """
         t = message
         if isinstance(t, int):
-            self.displayLbl.SetLabel("time since thread started: %s seconds" % t)
+            self.displayLbl.SetLabel("time since thread started: %s seconds" %t)
         else:
             self.displayLbl.SetLabel("%s" % t)
             self.btn.Enable()
