@@ -16,6 +16,9 @@ catx = 10
 caty = 10
 direction = 'right'
 
+pygame.mixer.music.load("littleidea.mp3")
+pygame.mixer.music.play(-1, 0.0)
+
 while True: #game loop
     if direction == 'right':
         catx += 5

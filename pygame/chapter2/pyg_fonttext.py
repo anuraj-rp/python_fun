@@ -14,6 +14,9 @@ textSurfaceObj = fontObj.render('Hello World!', True, GREEN, BLUE)
 textRectObj = textSurfaceObj.get_rect()
 textRectObj.center = (200, 150)
 
+pygame.mixer.music.load("littleidea.mp3")
+pygame.mixer.music.play(-1, 0.0)
+
 while True: #main game loop
     DISPLAYSURF.fill(WHITE)
     DISPLAYSURF.blit(textSurfaceObj, textRectObj)
